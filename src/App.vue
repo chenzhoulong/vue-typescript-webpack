@@ -1,17 +1,23 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <Box />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import Box from "./components/layout/Box.vue"
 
-@Component
+@Component({
+  components:{
+    Box
+  }
+})
 export default class App extends Vue {}
 </script>
 
-<style scoped>
+<style>
+html, body, #app{
+  height: 100%;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
