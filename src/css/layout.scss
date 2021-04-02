@@ -1,0 +1,135 @@
+html, body, #app{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+.svg-container {
+  display: inline-block;
+}
+.app-container, .app-content {
+  height: 100%;
+}
+.app-container {
+  background: #2d3a4b;
+  .login-content {
+    position: relative;
+    width: 520px;
+    max-width: 100%;
+    padding: 160px 35px 0;
+    margin: 0 auto;
+    overflow: hidden;
+    box-sizing: border-box;
+    .el-form-item__content {
+      display: flex;
+      border: 1px solid hsla(0,0%,100%,.1);
+      background: rgba(0,0,0,.1);
+      border-radius: 5px;
+      color: #454545;
+      .el-input {
+        .el-input__inner {
+          background-color: unset;
+          border: unset;
+          color: #fff;
+        }
+        flex: 1;
+      }
+    }
+    .svg-container {
+      padding: 0 0 0 15px;
+      color: #889aa4;
+      vertical-align: middle;
+    }
+    .el-checkbox {
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+    .login-submit {
+      width: 100%;
+    }
+    h3 {
+      font-size: 26px;
+      color: #eee;
+      margin: 0 auto 40px auto;
+      text-align: center;
+      font-weight: 700;
+    }
+  }
+}
+
+.el-menu {
+  background-color: #304156;
+  border-right: solid 1px #304156;
+  &.el-menu-vertical:not(.el-menu--collapse) {
+    width: 200px;
+    flex: 1;
+  }
+  .el-menu--inline {
+    background-color: #1f2d3d;
+  }
+  .el-menu-item, .el-submenu__title {
+    color: #bfcbd9;
+    &:hover {
+      background-color: #263445;
+    }
+  }
+  .el-menu-item {
+    &:focus {
+      background: unset;
+    }
+    &.is-active {
+      color: #1890ff;
+    }
+  }
+  .el-submenu {
+    .el-menu-item {
+      &:hover {
+        background-color: #001528!important;
+      }
+    }
+    .el-submenu {
+      .el-submenu__title {
+        &:hover {
+          background-color: #001528!important;
+        }
+      }
+    }
+  }
+}
+
+
+.app-wrapper {
+  display: flex;
+  height: 100%;
+  .main-container {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    .navbar {
+      height: 50px;
+      background: #fff;
+      box-shadow: 0 1px 4px #00152914;
+    }
+    .app-main {
+      flex: 1;
+    }
+    .footer {
+      height: 50px;
+      background: aqua;
+    }
+  }
+  .sidebar-container {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    background-color: #304156;
+  }
+}

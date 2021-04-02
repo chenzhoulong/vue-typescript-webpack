@@ -1,34 +1,36 @@
 <template>
-  <div id="navigation">
-    <div class="navigation-top"></div>
+
     <el-menu default-active="1-4-1" class="el-menu-vertical" @open="handleOpen" @close="handleClose" :collapse="isCollapse" router>
-      <el-submenu index="1">
+      <el-menu-item index="/home">
+        <i class="el-icon-s-home" />
+        <span slot="title">home</span>
+      </el-menu-item>
+      <el-submenu index="/demo">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
+          <span slot="title">submenu-1</span>
         </template>
-          <el-menu-item index="/home">选项1</el-menu-item>
-          <el-menu-item index="/home1">选项2</el-menu-item>
-          <el-menu-item >选项3</el-menu-item>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
+          <el-menu-item index="/demo/helloWorld">submenu-1-1</el-menu-item>
+          <el-menu-item index="/submenu-1/submenu-1-2">submenu-1-2</el-menu-item>
+          <el-menu-item index="/submenu-1/submenu-1-3">submenu-1-3</el-menu-item>
+        <el-submenu index="/submenu-1/submenu-1-4">
+          <span slot="title">submenu-1-4</span>
+          <el-menu-item index="/submenu-1/submenu-1-4/submenu-1-4-1">submenu-1-4-1</el-menu-item>
         </el-submenu>
       </el-submenu>
-      <el-menu-item index="2">
+      <el-menu-item index="submenu-2">
         <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
+        <span slot="title">submenu-2</span>
       </el-menu-item>
-      <el-menu-item index="3" disabled>
+      <el-menu-item index="submenu-3" disabled>
         <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
+        <span slot="title">submenu-3</span>
       </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="submenu-4">
         <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
+        <span slot="title">submenu-4</span>
       </el-menu-item>
     </el-menu>
-  </div>
 </template>
 
 <script lang="ts">
@@ -37,9 +39,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class Navigation extends Vue {
 
-  private isCollapse: boolean = false
+  @Prop(Boolean) private isCollapse!: Boolean
 
-  private handleOpen(key, keyPath) {
+  private handleOpen(key, keyPath){
     console.log(key, keyPath);
   }
 
@@ -48,38 +50,3 @@ export default class Navigation extends Vue {
   }
 }
 </script>
-
-<style>
-#navigation {
-  height: 100%;
-  display: flex;
-  flex-flow: column;
-  background-color: #304156;
-}
-#navigation .el-menu-vertical {
-  background-color: #304156;
-  border-right-color: #304156;
-}
-#navigation .el-submenu__title:hover, #navigation .el-menu-item:hover, #navigation .el-menu-item:focus{
-  background-color: #263445!important;
-}
-#navigation .el-submenu .el-menu-item:hover, #navigation .el-submenu>.el-submenu__title:hover {
-  background-color: #001528!important;
-}
-#navigation .el-menu.el-menu--inline {
-  background-color: #1f2d3d;
-}
-#navigation .el-menu-item.is-active {
-  color: #1890ff;
-}
-#navigation .el-menu-vertical:not(.el-menu--collapse) {
-  width: 200px;
-  flex: 1;
-}
-#navigation .navigation-top {
-  height: 50px;
-}
-#navigation .el-menu-item, #navigation .el-submenu__title{
-  color: rgb(191, 203, 217);
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div class="app-main">
     <router-view></router-view>
   </div>
 </template>
@@ -10,9 +10,3 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class Main extends Vue {}
 </script>
-
-<style scoped>
-#main {
-  flex: 1;
-}
-</style>

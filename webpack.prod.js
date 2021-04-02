@@ -6,12 +6,30 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { merge } = require('webpack-merge');
 const baseConfig = require('./webpack.base');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(baseConfig, {
-    mode: 'production',
     optimization: {
+        splitChunks: {
+            chunks: "all",
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: true,
+            cacheGroups: {
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true,
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                }
+            }
+        },
         minimizer: [
-            //JS 压缩
             new UglifyJsPlugin({
                 cache: true,
                 parallel: true,
@@ -25,9 +43,8 @@ module.exports = merge(baseConfig, {
                     }
                 }
             }),
-            //CSS 压缩
             new OptimizeCSSAssetsPlugin ({
-                assetNameRegExp: /\.(sa|sc|c)ss$/g, 
+                assetNameRegExp: /\.(sa|sc|c)ss$/g,
                 cssProcessor: require('cssnano'),
                 cssProcessorPluginOptions: {
                     preset: ['default', {
@@ -40,7 +57,11 @@ module.exports = merge(baseConfig, {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].[hash].css',
+            chunkFilename: 'css/[id].[hash].css',
+        }),
     ],
     
 })

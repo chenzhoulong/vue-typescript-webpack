@@ -5,9 +5,13 @@
         "noImplicitAny": false,
         "sourceMap": true,
         "strict": true,
-        "module": "es2015",
+        "module": "esnext",
         "moduleResolution": "node",
-        "target": "es5"
+        "target": "es5",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
     "include": ["src"]
 }

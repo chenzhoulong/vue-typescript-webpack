@@ -2,10 +2,16 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const isProd = process.env.NODE_ENV === 'production'
+
+function resolve (dir) {
+    return path.join(__dirname, dir)
+}
 
 module.exports = {
+    mode: isProd ? 'production' : 'development',
     entry: ['./src/main.ts'],
     output: {
         path: path.resolve(__dirname, './dist/'),
@@ -37,22 +43,21 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 include: [
-                    path.join(__dirname, 'src'), 
-                    path.join(__dirname, 'test'), 
+                    path.join(__dirname, 'src'),
                     path.join(__dirname, 'node_modules/webpack-dev-server/client')
                 ]
             },
             {
                 test: /\.css$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    ...[isProd ? MiniCssExtractPlugin.loader : 'style-loader'],
                     'css-loader',
                 ],
             },
             {
                 test: /\.less$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    ...[isProd ? MiniCssExtractPlugin.loader : 'style-loader'],
                     'css-loader',
                     'less-loader'
                 ]
@@ -60,14 +65,23 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    ...[isProd ? MiniCssExtractPlugin.loader : 'style-loader'],
                     "css-loader",
                     "sass-loader"
                 ]
             },
             {
+                test: /\.svg$/,
+                loader: 'svg-sprite-loader',
+                include: [resolve('src/icons')],
+                options: {
+                    symbolId: 'icon-[name]'
+                }
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
+                exclude: [resolve('src/icons')],
                 options: {
                     limit: 10000,
                     name: 'static/img/[name].[hash:7].[ext]',
@@ -99,10 +113,6 @@ module.exports = {
             filename: 'index.html',
             favicon:'./favicon.ico',
             template: './index.html',
-        }),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[hash].css',
-            chunkFilename: 'css/[id].[hash].css',
-        }),
+        })
     ]
 }
